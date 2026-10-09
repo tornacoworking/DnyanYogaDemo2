@@ -1,0 +1,42 @@
+{
+  "name": "dnyanyoga-digital-services",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Website for DnyanYoga Digital Services. React + Vite + Tailwind CSS (JavaScript), pre-rendered for SEO, with an Express + MongoDB (Mongoose) backend.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-server && node scripts/prerender.js",
+    "preview": "vite preview --port 4173",
+    "audit": "node scripts/audit.mjs",
+    "server": "node server/index.js",
+    "server:dev": "node --watch server/index.js",
+    "start": "npm run build && node server/index.js",
+    "test:api": "node --test scripts/test-api.mjs",
+    "seo:check": "node scripts/seo-check.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.2.0",
+    "@fontsource/poppins": "^5.2.0",
+    "dotenv": "^18.0.6",
+    "express": "^5.2.1",
+    "framer-motion": "^12.23.0",
+    "lucide-react": "^0.460.0",
+    "mongoose": "^9.11.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router": "^7.6.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.0",
+    "@vitejs/plugin-react": "^4.5.0",
+    "chrome-launcher": "^1.2.0",
+    "lighthouse": "^12.8.0",
+    "tailwindcss": "^4.1.0",
+    "vite": "^6.3.0"
+  },
+  "engines": {
+    "node": ">=20.11.0"
+  }
+}

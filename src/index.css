@@ -1,0 +1,141 @@
+/**
+ * index.css
+ * Global styles for the whole website (imported once in src/main.jsx).
+ * - Loads Tailwind CSS v4 and our tailwind.config.js (brand colours, fonts, breakpoints).
+ * - Sets base styles: font, text colour, smooth scrolling, focus outlines.
+ * - Defines a few reusable component classes (buttons, section spacing, cards)
+ *   so the same look is used everywhere.
+ */
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+/* ===== Fonts =====
+   Poppins (headings) and Inter (body) are installed with npm (@fontsource packages, imported
+   in src/main.jsx) and served from our own domain: no request to Google Fonts, so text
+   appears faster. These variables are used by tailwind.config.js (font-heading / font-body). */
+:root {
+  --font-poppins: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-inter: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ===== Base styles ===== */
+@layer base {
+  html {
+    /* Smooth scrolling for in-page links, but only when the visitor has not asked
+       their device to reduce motion (accessibility). */
+    scroll-behavior: auto;
+    -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    @apply bg-white font-body text-base text-ink antialiased;
+    /* 16px body text minimum (mobile readability) */
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading text-navy-700;
+    line-height: 1.2;
+  }
+
+  /* Visible keyboard focus on every interactive element (WCAG 2.1 AA). */
+  :focus-visible {
+    outline: 3px solid var(--color-saffron-500, #e8641b);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Buttons and links get a pointer cursor in Tailwind v4 only if we ask for it. */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+/* ===== Reusable component classes ===== */
+@layer components {
+  /* Centred page container: full width on phones with 16px side padding,
+     growing to 24px/32px padding on bigger screens, never wider than 1280px. */
+  .container-page {
+    @apply mx-auto w-full max-w-content px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Section spacing from the brief: py-16 on mobile, py-24 on desktop. */
+  .section {
+    @apply py-16 lg:py-24;
+  }
+
+  /* Small coloured label above section headings. */
+  .eyebrow {
+    @apply mb-3 inline-block text-sm font-semibold uppercase tracking-wider text-saffron-600;
+  }
+
+  /* Buttons. min-h-11 = 44px, the minimum comfortable tap target size on phones.
+     Each variant repeats the shared base classes because Tailwind v4 cannot @apply
+     one custom class inside another. */
+  .btn-primary,
+  .btn-secondary,
+  .btn-outline,
+  .btn-light {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-semibold transition-colors duration-200;
+  }
+  /* Primary button: dark orange (#BD480D) is used for the background because white text on
+     the lighter brand orange does not reach the 4.5:1 contrast ratio needed for accessibility. */
+  .btn-primary {
+    @apply bg-saffron-600 text-white hover:bg-saffron-700;
+  }
+  .btn-secondary {
+    @apply bg-navy-700 text-white hover:bg-navy-800;
+  }
+  .btn-outline {
+    @apply border-2 border-navy-700 text-navy-700 hover:bg-navy-700 hover:text-white;
+  }
+  .btn-light {
+    @apply bg-white text-navy-700 hover:bg-navy-50;
+  }
+
+  /* Card with soft shadow that lifts on hover. */
+  .card {
+    @apply rounded-2xl bg-white shadow-card transition duration-300;
+  }
+  .card-hover {
+    @apply hover:-translate-y-1 hover:shadow-card-hover motion-reduce:hover:translate-y-0;
+  }
+
+  /* Form inputs: 16px text so iOS Safari does not zoom in when the field is tapped. */
+  .form-input {
+    @apply block min-h-11 w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-base text-ink placeholder:text-gray-500 focus:border-navy-500 focus:ring-2 focus:ring-navy-200 focus:outline-none;
+  }
+  .form-label {
+    @apply mb-1.5 block text-sm font-medium text-ink;
+  }
+
+  /* Readable long-form text (legal pages, blog posts). */
+  .prose-body p {
+    @apply mb-4 text-gray-700;
+  }
+  .prose-body h2 {
+    @apply mt-10 mb-4 text-2xl font-semibold;
+  }
+}
+
+/* While any pop-up (<dialog>) is open, stop the page behind it from scrolling. */
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+/* Pause the logo marquee and any CSS animations for people who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none !important;
+  }
+}
