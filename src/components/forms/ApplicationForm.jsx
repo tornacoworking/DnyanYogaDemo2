@@ -2,7 +2,7 @@
  * ApplicationForm.jsx
  * Job / internship application form: name, phone, email, city, role, CV link, message, consent.
  * Used on: /careers and /internship (only shown when there are open roles in /src/data/careers.js).
- * Each application is emailed to site.formRecipient (see useFormSubmit.js).
+ * Each application is emailed to the business inbox (see useFormSubmit.js).
  *
  * WHY a link instead of a file upload: there is no server to store files, so applicants
  * share a Google Drive/LinkedIn/portfolio link.

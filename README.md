@@ -88,12 +88,13 @@ field plus the page URL and any UTM tags.
 recipient address the first time it receives a submission. Click it, otherwise enquiries are not
 delivered (visitors see an error until then). Also check the Spam folder.
 
-**Change the recipient:** `src/data/site.js` → `formRecipient`. The new address must be activated
-the same way.
+**Change the recipient:** submit a form with the new address in the URL, click "Activate Form" in
+the email FormSubmit sends, then paste the private ID from that email into `src/data/site.js` →
+`formEndpointId`. The site uses that ID instead of the plain address, so the address is not exposed.
 
 **Limits to know about:**
 - Nothing is stored: if an email is deleted, the enquiry is gone. Keep the inbox as your record.
-- FormSubmit is a free third-party service; the recipient address is visible in the page code.
+- FormSubmit is a free third-party service.
 - Spam protection is a hidden honeypot field only (no captcha, no rate limit).
 - Form data passes through FormSubmit's servers (the privacy policy text says so).
 
@@ -165,7 +166,7 @@ reload, and the `<Seo>` component updates the tab title and tags.
 | **Change page titles/descriptions** | Services/categories: `src/data/services.js`. Other pages: `src/data/pages.js` → `pageSeo`. |
 | **Change homepage text** | `src/data/home.js`. |
 | **Add a new page** | Create `src/pages/MyPage.jsx` (copy a simple one like `FaqPage.jsx`), add a `<Route>` in `src/App.jsx`, and add its path to `getPages()` in `src/entry-server.jsx` so it is pre-rendered and listed in the sitemap. |
-| **View enquiries** | Open the inbox of the address in `src/data/site.js` → `formRecipient` (section 3). |
+| **View enquiries** | Open the inbox of the address in `src/data/site.js` → `formEndpointId` (section 3). |
 | **Open the pop-up from a new button** | Use `<a href="#enquire">Text</a>` anywhere, or the `LetsTalkButton` component. Add `data-service="SEO"` to pre-select a service. |
 
 ---

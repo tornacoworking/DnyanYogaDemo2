@@ -2,7 +2,7 @@
  * EnquiryForm.jsx
  * The main enquiry form: name, phone, email, company, city, service, budget, message, consent.
  * Used on: the "Let's Talk" pop-up, /contact, the homepage CTA section and every
- * service/category page. Each submission is emailed to site.formRecipient (see useFormSubmit.js).
+ * service/category page. Each submission is emailed to the business inbox (see useFormSubmit.js).
  *
  * Shows loading/success/error states without reloading the page.
  * Data comes from: the page passes serviceOptions and whatsapp as props, so the form

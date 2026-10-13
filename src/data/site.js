@@ -56,11 +56,14 @@ export const site = {
   // Inquiry / contact email. Shown in the footer and contact page, and used in JSON-LD.
   email: "info@dnyanyoga.com",
 
-  // Every form on the site (enquiry, careers, internship, newsletter) is emailed here, one email
-  // per submission, through the FormSubmit.co service (see src/components/forms/useFormSubmit.js).
-  // IMPORTANT: the first submission after changing this address triggers an "Activate Form" email
-  // from FormSubmit to this inbox. Click its button once, or no enquiries will arrive.
-  formRecipient: "tornacoworking@gmail.com",
+  // Every form on the site (enquiry, careers, internship, newsletter) is emailed to the business
+  // inbox, one email per submission, through the FormSubmit.co service
+  // (see src/components/forms/useFormSubmit.js).
+  // This is FormSubmit's private ID for the inbox (activated for tornacoworking@gmail.com), used
+  // instead of the plain email address so the address is not exposed in the page code.
+  // To change the inbox: submit a form with the new address, click "Activate Form" in the email
+  // FormSubmit sends, then paste the new ID from that email here.
+  formEndpointId: "3c12b5c96f898719c1ed9cc24cd400ac",
 
   address: {
     street: "Coworking Space - Torna, 82/2/9, Baner Road",

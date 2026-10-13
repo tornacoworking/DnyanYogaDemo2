@@ -2,8 +2,8 @@
  * useFormSubmit.js
  * A React hook shared by every form on the site (enquiry, application, newsletter).
  * There is no backend or database: each submission is sent straight from the browser to the
- * FormSubmit.co email service, which emails it to the address in site.formRecipient
- * (src/data/site.js). Every submission becomes ONE separate email, with a subject that says
+ * FormSubmit.co email service, which emails it to our business inbox (ID in
+ * site.formEndpointId, src/data/site.js). Every submission becomes ONE separate email, with a subject that says
  * which form it came from.
  *
  * The hook handles the whole submit flow so each form only has to draw its fields:
@@ -16,8 +16,8 @@
 import { useState, useCallback } from "react";
 import { site } from "@/data/site";
 
-/** FormSubmit's JSON endpoint: POST here and the data is emailed to the address in the URL. */
-const FORM_ENDPOINT = `https://formsubmit.co/ajax/${site.formRecipient}`;
+/** FormSubmit's JSON endpoint: POST here and the data is emailed to the inbox this ID belongs to. */
+const FORM_ENDPOINT = `https://formsubmit.co/ajax/${site.formEndpointId}`;
 
 /** Email subject for each form, so every email says what it is. */
 const SUBJECTS = {

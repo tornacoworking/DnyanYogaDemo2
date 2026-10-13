@@ -1,6 +1,6 @@
 /**
  * NewsletterForm.jsx
- * Small email sign-up form in the footer. Each sign-up is emailed to site.formRecipient.
+ * Small email sign-up form in the footer. Each sign-up is emailed to the business inbox.
  * Used on: Footer (every page).
  */
 import { useId } from "react";
