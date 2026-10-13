@@ -23,6 +23,7 @@ import { openings } from "./careers";
 import { faqGroups } from "./faqs";
 import { industries } from "./industries";
 import { heroSlides, aboutSnippet, processSteps, whyChooseUs, ctaBand } from "./home";
+import { workHero, aiSearch, auditTool, workRating, socialProof, sampleClients, sampleReviews, workProjects } from "./work";
 import { pageSeo, about, legal, privacyPolicy, terms } from "./pages";
 
 // Re-export everything so pages can do: import { site, services } from "@/data/db";
@@ -45,6 +46,14 @@ export {
   processSteps,
   whyChooseUs,
   ctaBand,
+  workHero,
+  aiSearch,
+  auditTool,
+  workRating,
+  socialProof,
+  sampleClients,
+  sampleReviews,
+  workProjects,
   pageSeo,
   about,
   legal,
@@ -152,6 +161,7 @@ export function getQuickLinks() {
     { label: "About Us", href: "/about", show: true },
     { label: "Services", href: "/services", show: true },
     { label: "Industries", href: "/industries", show: true },
+    { label: "Our Work", href: "/work", show: true },
     { label: "Case Studies", href: "/case-studies", show: hasData.caseStudies },
     { label: "Testimonials", href: "/testimonials", show: hasData.testimonials },
     { label: "Blog", href: "/blog", show: hasData.blog },

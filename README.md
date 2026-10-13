@@ -1,9 +1,8 @@
-# DnyanYoga: Digital Services Website (React + Vite + Express + MongoDB)
+# DnyanYoga: Digital Services Website (React + Vite, no backend)
 
 The website for **DnyanYoga** (tagline: *Digital Services*), Pune. Production domain: **DnyanYoga.com**
 · inquiries: **info@dnyanyoga.com**.
-Built with **React 19 + Vite + React Router + Tailwind CSS v4** (plain JavaScript, no TypeScript) and a
-**Node.js + Express + MongoDB (Mongoose)** backend. Every page is **pre-rendered to its own HTML file**
+Built with **React 19 + Vite + React Router + Tailwind CSS v4** (plain JavaScript, no TypeScript). There is **no backend and no database**: forms are emailed. Every page is **pre-rendered to its own HTML file**
 at build time for speed and SEO.
 
 > The domain and email are the *intended* production values. DNS, hosting and the mailbox must be
@@ -13,44 +12,30 @@ at build time for speed and SEO.
   Privacy Policy and Terms. Blog, Case Studies, Testimonials, Careers and Internship appear
   automatically once you add real content.
 - All content lives in `src/data`. Nothing is hard-coded in the components.
-- Every form (Let's Talk, Contact, Home CTA, Service pages, Careers, Internship, Newsletter) saves to
-  **MongoDB** through the Express API (`POST /api/enquiry`), with loading, error and success states.
-- Admin API (protected by `ADMIN_API_KEY`) to list, read, update and delete saved enquiries,
-  applications and newsletter subscribers.
+- Every form (Let's Talk, Contact, Home CTA, Service pages, Careers, Internship, Newsletter) is
+  **emailed to tornacoworking@gmail.com** (one email per submission) through FormSubmit.co, with loading,
+  error and success states. See section 3.
 - `npm run seo:check` (offline SEO check of every built page) and `npm run audit` (Lighthouse).
 
 ---
 
 ## 1. Quick start
 
-You need **Node.js 20.11 or newer** (22 LTS recommended), **MongoDB** (local install or a free
-[MongoDB Atlas](https://www.mongodb.com/atlas) cluster) and, for the Lighthouse audit, Google Chrome.
+You need **Node.js 20.11 or newer** (22 LTS recommended) and, for the Lighthouse audit, Google Chrome.
 
 ```bash
 npm install                  # download the libraries (first time only)
-cp .env.example .env         # then edit .env: set MONGODB_URI (and ADMIN_API_KEY, see section 3)
+npm run dev                  # website on http://localhost:5173
 ```
 
-**Develop (two terminals):**
-```bash
-npm run server:dev           # terminal 1: Express + MongoDB API on http://localhost:5000
-npm run dev                  # terminal 2: website on http://localhost:5173 (proxies /api to port 5000)
-```
-
-**Run like production (one process serves the built site and the API):**
-```bash
-npm run build                # builds dist/ and pre-renders every page
-npm run server               # http://localhost:5000  (or: npm start = build + server)
-```
+> If `npm install` skips dev tools such as Vite, your shell has `NODE_ENV=production` set. Run
+> `npm install --include=dev`.
 
 | Command | What it does |
 |---|---|
-| `npm run dev` | Vite dev server with hot reload. `/api/*` is proxied to the Express server. |
-| `npm run server` / `npm run server:dev` | Starts the Express + MongoDB backend (`server:dev` restarts on file changes). Also serves `dist/` when it exists. |
+| `npm run dev` | Vite dev server with hot reload |
 | `npm run build` | Builds the site into `dist/`: browser bundle, server bundle, then **pre-renders every page** + `404.html`, `sitemap.xml`, `robots.txt` |
-| `npm start` | `build` followed by `server` |
-| `npm run preview` | Serves only the static `dist/` folder at http://localhost:4173 (no API) |
-| `npm run test:api` | End-to-end API test against a real MongoDB (needs `MONGODB_TEST_URI` or `MONGODB_URI`; uses a separate `dnyanyoga_test` database and drops it afterwards) |
+| `npm run preview` | Serves the static `dist/` folder at http://localhost:4173 |
 | `npm run seo:check` | Offline SEO check of every page in `dist/` (run `npm run build` first) |
 | `npm run audit` | Builds, serves and Lighthouse-tests every page (section 6) |
 
@@ -80,77 +65,52 @@ Every file with unfinished work has an **"UNDONE / TODO"** block at the top. Sum
 
 ---
 
-## 3. Backend: Node.js + Express + MongoDB (Mongoose)
+## 3. Forms → email (no backend, no database)
 
-**form → `POST /api/enquiry` (Express: rate limit, honeypot, zod validation) → Mongoose model → MongoDB.**
+**form → browser → FormSubmit.co → email to `tornacoworking@gmail.com`.**
 
-### Configure
-1. Install MongoDB locally, or create a free Atlas cluster and copy its connection string.
-2. `cp .env.example .env` and set:
-   ```
-   MONGODB_URI=mongodb://127.0.0.1:27017/dnyanyoga      # or your Atlas mongodb+srv://... string
-   PORT=5000
-   ADMIN_API_KEY=<long random secret>                    # leave empty to switch the admin API off
-   ```
-   Generate a key: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`
-3. `.env` is git-ignored. `.env.example` holds placeholders only. Never put these values in a
-   `VITE_...` variable: those are copied into the browser code.
+Every form (Let's Talk pop-up, Contact, Home CTA, Service pages, Careers, Internship, Newsletter)
+uses one hook, `src/components/forms/useFormSubmit.js`. Each submission becomes **its own email**
+whose subject says where it came from, e.g. `New Enquiry: Contact page`. The email lists every
+field plus the page URL and any UTM tags.
 
-### Collections (Mongoose models in `server/models/`)
-| Form | Model → collection |
+| Form | Email subject |
 |---|---|
-| Let's Talk pop-up, Contact page, Home CTA, Service pages | `Enquiry` → `enquiries` |
-| Careers, Internship | `JobApplication` → `jobapplications` |
-| Footer newsletter | `NewsletterSubscriber` → `newslettersubscribers` (one document per email) |
+| Let's Talk pop-up | New Enquiry: Let's Talk pop-up |
+| Contact page | New Enquiry: Contact page |
+| Home CTA | New Enquiry: Homepage |
+| Service / category / industries / blog / case-study pages | New Enquiry: Service page |
+| Careers | New Enquiry: Job application |
+| Internship | New Enquiry: Internship application |
+| Footer newsletter | New Enquiry: Newsletter subscriber |
 
-### API
-| Method + path | Access | What it does |
-|---|---|---|
-| `POST /api/enquiry` | public | Validates and saves a form submission. Returns `{ ok: true }` or `{ ok: false, errors, message }` |
-| `GET /api/health` | public | `{ ok, database }` (503 if MongoDB is not connected) |
-| `GET /api/enquiries`, `/api/applications`, `/api/subscribers` | `x-api-key` | List with `?page=&limit=&status=&formType=&q=` |
-| `GET /api/<resource>/:id` | `x-api-key` | Read one record |
-| `PATCH /api/enquiries/:id`, `/api/applications/:id` | `x-api-key` | Update only `status` (`new` / `contacted` / `closed`) and `notes` |
-| `DELETE /api/<resource>/:id` | `x-api-key` | Delete a record |
+**First-time activation (required once):** FormSubmit emails an **"Activate Form"** link to the
+recipient address the first time it receives a submission. Click it, otherwise enquiries are not
+delivered (visitors see an error until then). Also check the Spam folder.
 
-Example: `curl -H "x-api-key: $ADMIN_API_KEY" http://localhost:5000/api/enquiries`
+**Change the recipient:** `src/data/site.js` → `formRecipient`. The new address must be activated
+the same way.
 
-### Backend code (`server/`)
-```
-server/
-├── index.js                 Starts the server: loads .env, connects to MongoDB, listens on PORT
-├── app.js                   Express app: security headers, routes, serves dist/, JSON errors
-├── config/db.js             Mongoose connection (cached, reads MONGODB_URI)
-├── models/                  Enquiry, JobApplication, NewsletterSubscriber (+ shared tracking fields)
-├── controllers/             submissionController (public form), recordsController (admin read/update/delete)
-├── routes/                  submissionRoutes, recordsRoutes
-├── middleware/requireAdmin.js   x-api-key check (constant-time); 404 when ADMIN_API_KEY is unset
-├── enquirySchema.js         zod validation rules shared by every form
-└── rateLimit.js             5 submissions / 10 minutes / IP (in memory)
-```
-Behind a proxy or load balancer, set `TRUST_PROXY=1` so rate limiting sees the real visitor IP.
-
-> The old Google Sheets / Apps Script storage is no longer used. `google-apps-script/Code.gs` is kept
-> only for reference and can be deleted.
+**Limits to know about:**
+- Nothing is stored: if an email is deleted, the enquiry is gone. Keep the inbox as your record.
+- FormSubmit is a free third-party service; the recipient address is visible in the page code.
+- Spam protection is a hidden honeypot field only (no captcha, no rate limit).
+- Form data passes through FormSubmit's servers (the privacy policy text says so).
 
 ---
 
 ## 4. Deploying
 
-**Recommended: one Node server** (any VPS, Render, Railway, Fly.io...). Set `MONGODB_URI`, `PORT`,
-`ADMIN_API_KEY` (and `TRUST_PROXY=1` behind a proxy) in the host's environment settings, then
-run `npm install && npm run build` and start with `npm run server`. That one process serves the
-pre-rendered pages (clean URLs and a real 404 page) and the API.
-
-**Static host + serverless forms (optional):** Vercel (`vercel.json`, `api/enquiry.js`) and
-Netlify (`netlify.toml`, `netlify/functions/enquiry.js`) still work: the function saves to
-MongoDB using the same code, so set `MONGODB_URI` in their settings. The admin API (list /
-update / delete) is only available from the Express server.
+The site is fully static: upload the `dist/` folder (after `npm run build`) to any static host
+(Netlify, Vercel, Cloudflare Pages, GitHub Pages, shared hosting...). `vercel.json` and
+`netlify.toml` only hold build settings and security headers. FormSubmit only accepts requests
+from a real website address, so test the forms on the deployed site (or `npm run dev`), not by
+opening the HTML files directly.
 
 Before going live (these cannot be verified from this project):
 1. Point the **DnyanYoga.com** DNS at your host, enable HTTPS, and redirect `www.dnyanyoga.com`
    to `DnyanYoga.com` (one canonical host).
-2. Create the **info@dnyanyoga.com** mailbox (the site only displays it and links to it).
+2. Create the **info@dnyanyoga.com** mailbox (the site only displays it and links to it). Enquiries go to tornacoworking@gmail.com (section 3).
 3. Set `VITE_SITE_URL=https://DnyanYoga.com`, rebuild and redeploy.
 4. Add the site to **Google Search Console** and submit `https://DnyanYoga.com/sitemap.xml`.
 5. Claim/optimise your **Google Business Profile** with the same name, phone and address.
@@ -172,21 +132,16 @@ dnyanyoga/
 │   │   ├── layout/           Header, desktop mega-menu, mobile drawer, footer, floating Call/WhatsApp
 │   │   ├── home/             Homepage sections (hero slider, counters, process, industries...)
 │   │   ├── sections/         Sections reused on many pages (FAQ, enquiry band, testimonials...)
-│   │   ├── forms/            Enquiry/application/newsletter forms, "Let's Talk" pop-up
+│   │   ├── forms/            Enquiry/application/newsletter forms (emailed), "Let's Talk" pop-up
 │   │   └── ui/               Small building blocks (Seo, cards, icons, images, headings, breadcrumbs)
 │   ├── data/                 ALL content (see src/data/README.md)
 │   └── lib/                  SEO tags + JSON-LD helpers, shared form options
-├── server/                   Express + MongoDB backend (see section 3)
-├── api/enquiry.js            Optional Vercel function → server/controllers/submissionController.js
-├── netlify/functions/        Optional Netlify function → same controller
 ├── scripts/prerender.js      Turns every page into HTML + writes 404.html, sitemap.xml, robots.txt
 ├── scripts/audit.mjs         The Lighthouse SEO/performance audit (section 6)
 ├── scripts/seo-check.mjs     Offline SEO check of every built page
-├── scripts/test-api.mjs      End-to-end API test (needs MongoDB)
-├── google-apps-script/Code.gs  Old Google Sheets storage, no longer used
 ├── public/                   Files served as-is: logo.png, og-image.png, favicon, your images
 ├── tailwind.config.js        Brand colours, fonts, breakpoints
-├── vite.config.js            Vite settings, "@" import alias, dev proxy of /api to the Express server
+├── vite.config.js            Vite settings and the "@" import alias
 ├── vercel.json / netlify.toml  Hosting settings
 └── .env.example              The environment variables you need
 ```
@@ -210,7 +165,7 @@ reload, and the `<Seo>` component updates the tab title and tags.
 | **Change page titles/descriptions** | Services/categories: `src/data/services.js`. Other pages: `src/data/pages.js` → `pageSeo`. |
 | **Change homepage text** | `src/data/home.js`. |
 | **Add a new page** | Create `src/pages/MyPage.jsx` (copy a simple one like `FaqPage.jsx`), add a `<Route>` in `src/App.jsx`, and add its path to `getPages()` in `src/entry-server.jsx` so it is pre-rendered and listed in the sitemap. |
-| **View enquiries** | Use the admin API (section 3), or open the `enquiries` / `jobapplications` / `newslettersubscribers` collections in MongoDB Compass or Atlas. |
+| **View enquiries** | Open the inbox of the address in `src/data/site.js` → `formRecipient` (section 3). |
 | **Open the pop-up from a new button** | Use `<a href="#enquire">Text</a>` anywhere, or the `LetsTalkButton` component. Add `data-service="SEO"` to pre-select a service. |
 
 ---

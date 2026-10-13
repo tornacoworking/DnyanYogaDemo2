@@ -14,7 +14,7 @@ import MobileMenu from "./MobileMenu";
 import LetsTalkButton from "@/components/forms/LetsTalkButton";
 
 /** Top-level links shown next to "Services" on desktop (a short list keeps the bar clean). */
-const PRIMARY_LINK_HREFS = ["/about", "/industries", "/case-studies", "/blog", "/contact"];
+const PRIMARY_LINK_HREFS = ["/work", "/about", "/industries", "/case-studies", "/blog", "/contact"];
 
 export default function Header() {
   const menuCategories = getMenuCategories();

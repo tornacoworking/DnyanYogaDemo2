@@ -59,6 +59,18 @@ export default {
           600: "#5F9420",
           700: "#4A7319",
         },
+        // Indigo accent and dark "night" background used by the /work page sections.
+        accent: {
+          100: "#E4E6FF",
+          300: "#A8AEFF",
+          500: "#4F5BFF",
+          600: "#3F46E8",
+          700: "#3338C9",
+        },
+        night: {
+          800: "#111933",
+          900: "#0B1020",
+        },
         // Main text colour.
         ink: "#1F2937",
       },

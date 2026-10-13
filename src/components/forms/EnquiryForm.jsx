@@ -2,8 +2,7 @@
  * EnquiryForm.jsx
  * The main enquiry form: name, phone, email, company, city, service, budget, message, consent.
  * Used on: the "Let's Talk" pop-up, /contact, the homepage CTA section and every
- * service/category page. Submissions are saved to Google Sheets + Google Docs through
- * /api/enquiry (see server/handleEnquiry.js and google-apps-script/Code.gs).
+ * service/category page. Each submission is emailed to site.formRecipient (see useFormSubmit.js).
  *
  * Shows loading/success/error states without reloading the page.
  * Data comes from: the page passes serviceOptions and whatsapp as props, so the form
@@ -17,7 +16,7 @@ import SuccessMessage from "./SuccessMessage";
 
 /**
  * @param {Object} props
- * @param {"lets-talk"|"contact"|"home-cta"|"service"} props.formType Where the form is used (decides the Google Sheet tab)
+ * @param {"lets-talk"|"contact"|"home-cta"|"service"} props.formType Where the form is used (shown in the email subject)
  * @param {Array<{group:string, options:string[]}>} props.serviceOptions Services for the dropdown, grouped by category
  * @param {string} props.whatsapp       Business WhatsApp number (digits)
  * @param {string} [props.defaultService] Pre-selects a service (e.g. on the SEO page, "SEO")

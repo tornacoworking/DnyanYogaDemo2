@@ -10,7 +10,7 @@ import EnquiryForm from "@/components/forms/EnquiryForm";
 
 /**
  * @param {Object} props
- * @param {"home-cta"|"service"|"contact"} props.formType Which Google Sheet tab the enquiry goes to
+ * @param {"home-cta"|"service"|"contact"} props.formType Used in the subject of the enquiry email
  * @param {{heading:string, text:string}} props.content    Heading and text (from /src/data/home.js → ctaBand)
  * @param {Array<{group:string, options:string[]}>} props.serviceOptions
  * @param {{phone:string, phoneDisplay:string, whatsapp:string}} props.contact

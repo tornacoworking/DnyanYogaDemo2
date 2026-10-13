@@ -56,6 +56,12 @@ export const site = {
   // Inquiry / contact email. Shown in the footer and contact page, and used in JSON-LD.
   email: "info@dnyanyoga.com",
 
+  // Every form on the site (enquiry, careers, internship, newsletter) is emailed here, one email
+  // per submission, through the FormSubmit.co service (see src/components/forms/useFormSubmit.js).
+  // IMPORTANT: the first submission after changing this address triggers an "Activate Form" email
+  // from FormSubmit to this inbox. Click its button once, or no enquiries will arrive.
+  formRecipient: "tornacoworking@gmail.com",
+
   address: {
     street: "Coworking Space - Torna, 82/2/9, Baner Road",
     city: "Pune",

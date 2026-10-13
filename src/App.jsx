@@ -24,6 +24,7 @@ import ServicesPage from "@/pages/ServicesPage";
 import CategoryPage from "@/pages/CategoryPage";
 import ServicePage from "@/pages/ServicePage";
 import AboutPage from "@/pages/AboutPage";
+import WorkPage from "@/pages/WorkPage";
 import IndustriesPage from "@/pages/IndustriesPage";
 import FaqPage from "@/pages/FaqPage";
 import ContactPage from "@/pages/ContactPage";
@@ -63,6 +64,7 @@ export default function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/work" element={<WorkPage />} />
             <Route path="/industries" element={<IndustriesPage />} />
             <Route path="/faq" element={<FaqPage />} />
             <Route path="/contact" element={<ContactPage />} />

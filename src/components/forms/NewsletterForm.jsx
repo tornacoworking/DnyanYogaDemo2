@@ -1,6 +1,6 @@
 /**
  * NewsletterForm.jsx
- * Small email sign-up form in the footer. Saved to the "newsletter" tab of the Google Sheet.
+ * Small email sign-up form in the footer. Each sign-up is emailed to site.formRecipient.
  * Used on: Footer (every page).
  */
 import { useId } from "react";

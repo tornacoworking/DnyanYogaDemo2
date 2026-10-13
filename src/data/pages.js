@@ -41,6 +41,11 @@ export const pageSeo = {
     description:
       "Digital marketing for real estate, healthcare, education, hospitality, retail, manufacturing and startups. See how DnyanYoga helps businesses in your industry.",
   },
+  work: {
+    title: "Our Work & Results | DnyanYoga Digital Services, Pune",
+    description:
+      "See how DnyanYoga turns SEO, websites, ads, social media and AI search into leads and growth for Pune businesses. Get a free website audit today.",
+  },
   faq: {
     title: "FAQs | DnyanYoga Digital Services Agency in Pune, India",
     description:
@@ -151,7 +156,7 @@ export const privacyPolicy = [
   {
     heading: "Where your information is stored",
     paragraphs: [
-      "Enquiries submitted through this website are stored securely in Google Workspace (Google Sheets and Google Docs) accessible only to our team, and a copy is sent to our business email.",
+      "Enquiries submitted through this website are sent by email to our team through a third-party form-to-email service (FormSubmit) and are read from our business inbox. We do not keep them in a separate database on this website.",
     ],
   },
   {

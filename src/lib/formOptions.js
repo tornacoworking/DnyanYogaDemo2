@@ -1,9 +1,6 @@
 /**
  * formOptions.js
- * Dropdown options shared by the browser forms (src/components/forms) and the server
- * validation (server/enquirySchema.js).
- * Kept in its own tiny file (without zod) so the browser forms can import it
- * without downloading the whole validation library.
+ * Dropdown options used by the forms (src/components/forms).
  */
 
 /** Budget ranges shown in the "Budget" dropdown. */

@@ -2,10 +2,10 @@
  * ApplicationForm.jsx
  * Job / internship application form: name, phone, email, city, role, CV link, message, consent.
  * Used on: /careers and /internship (only shown when there are open roles in /src/data/careers.js).
- * Saved to the "careers" or "internship" tab of the Google Sheet through /api/enquiry.
+ * Each application is emailed to site.formRecipient (see useFormSubmit.js).
  *
- * WHY a link instead of a file upload: Google Apps Script cannot safely accept file uploads
- * from a public website form, so applicants share a Google Drive/LinkedIn/portfolio link.
+ * WHY a link instead of a file upload: there is no server to store files, so applicants
+ * share a Google Drive/LinkedIn/portfolio link.
  */
 import { useId } from "react";
 import { useFormSubmit } from "./useFormSubmit";

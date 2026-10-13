@@ -13,7 +13,8 @@
  *  - Client logos (section 2) hidden: /src/data/clients.js is empty.
  *  - Counters (section 3) hidden: /src/data/stats.js is empty. Add real numbers.
  *  - Case studies (section 7) hidden: /src/data/caseStudies.js is empty.
- *  - Testimonials + Google rating (section 9) hidden: /src/data/testimonials.js and googleRating are empty.
+ *  - Section 9 shows the PLACEHOLDER reviews from /src/data/work.js until real ones are added to
+ *    /src/data/testimonials.js (the section then switches to those automatically).
  *  - Blog (section 10) hidden: /src/data/blog.js is empty.
  * ---------------------------------------------------------------------------
  */
@@ -28,13 +29,18 @@ import {
   getServiceOptions,
   getServicesByCategory,
   googleRating,
+  hasData,
   heroSlides,
   industries,
   pageSeo,
   processSteps,
+  sampleClients,
+  sampleReviews,
   site,
+  socialProof,
   stats,
   testimonials,
+  workRating,
   whyChooseUs,
 } from "@/data/db";
 import { buildMetadata } from "@/lib/seo";
@@ -51,6 +57,7 @@ import {
   ProcessSteps,
   WhyChooseUs,
 } from "@/components/home/HomeSections";
+import { SocialProof } from "@/components/work/WorkSections";
 import Testimonials from "@/components/sections/Testimonials";
 import FaqSection from "@/components/sections/FaqSection";
 import EnquirySection from "@/components/sections/EnquirySection";
@@ -122,7 +129,13 @@ export default function HomePage() {
       </Reveal>
 
       {/* ===== 9. Testimonials + Google rating (hidden while empty) ===== */}
-      <Testimonials testimonials={testimonials} googleRating={googleRating} />
+      {hasData.testimonials ? (
+        <Testimonials testimonials={testimonials} googleRating={googleRating} />
+      ) : (
+        <Reveal>
+          <SocialProof content={socialProof} rating={workRating} clients={sampleClients} reviews={sampleReviews} />
+        </Reveal>
+      )}
 
       {/* ===== 10. Latest blog posts (hidden while empty) ===== */}
       <LatestPosts posts={blogPosts} />

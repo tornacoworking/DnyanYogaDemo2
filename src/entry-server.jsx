@@ -69,6 +69,7 @@ export function getPages() {
     ...categories.map((category) => page(`/${category.slug}`, 0.9)),
     ...services.map((service) => page(serviceUrl(service), 0.8)),
     page("/about", 0.7),
+    page("/work", 0.8),
     page("/industries", 0.7),
     page("/faq", 0.6),
     page("/contact", 0.8),

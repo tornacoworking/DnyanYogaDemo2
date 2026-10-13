@@ -43,15 +43,15 @@ export function Field({ id, label, required = false, error, className = "", chil
 
 /**
  * Honeypot anti-spam field. It is moved off-screen so people never see it, but simple
- * spam bots fill in every field they find. If it arrives filled in, the server silently
- * ignores the submission. tabIndex -1 keeps keyboard users from landing on it.
+ * spam bots fill in every field they find. If it arrives filled in, useFormSubmit silently
+ * drops the submission (nothing is emailed). tabIndex -1 keeps keyboard users from landing on it.
  */
 export function HoneypotField() {
   return (
     <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
       <label>
         Leave this field empty
-        <input type="text" name="website" tabIndex={-1} autoComplete="off" defaultValue="" />
+        <input type="text" name="_honey" tabIndex={-1} autoComplete="off" defaultValue="" />
       </label>
     </div>
   );
