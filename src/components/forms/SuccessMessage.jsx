@@ -5,7 +5,8 @@
  * containing the visitor's name and the service they chose.
  * Used on: EnquiryForm.jsx and ApplicationForm.jsx.
  */
-import { CircleCheck, MessageCircle } from "lucide-react";
+import { CircleCheck } from "lucide-react";
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 
 /**
  * @param {Object} props
@@ -29,7 +30,7 @@ export default function SuccessMessage({ whatsapp, name, topic, onReset }) {
       <p className="mt-2 text-gray-700">Want a faster reply? Message us on WhatsApp.</p>
       <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
         <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="btn-secondary w-full sm:w-auto">
-          <MessageCircle className="h-5 w-5" aria-hidden="true" />
+          <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
           Chat on WhatsApp
         </a>
         <button type="button" onClick={onReset} className="btn-outline w-full sm:w-auto">

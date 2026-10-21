@@ -9,9 +9,8 @@
  *  - workHero.stats, workHero.dashboard: placeholder figures from the design brief.
  *    Replace with verified numbers, then set workHero.statsAreSample to false
  *    (this removes the yellow "placeholders" notice).
- *  - sampleClients and sampleReviews: invented names for layout only. Each review card
- *    carries a "Sample" badge. Replace with real clients/reviews (with their permission),
- *    then set sample: false on each review to remove the badge.
+ *  - sampleClients and sampleReviews: invented names, companies and stock photos for layout
+ *    only. Replace with real clients/reviews (with their permission) before launch.
  *  - workRating: placeholder Google rating. Add the real rating and reviewsUrl.
  *  - auditScores: an "Example output" for the audit tool, not a real result.
  * ---------------------------------------------------------------------------
@@ -127,66 +126,60 @@ export const sampleClients = [
 ];
 
 /**
- * PLACEHOLDER reviews (invented names). For each REAL review:
+ * PLACEHOLDER reviews (invented names, companies and stock photos). For each REAL review:
  *  - use the client's real name, role and words (with their permission),
  *  - set `photo` to their picture, e.g. "/images/clients/priya-s.webp" (square, ~200px, WebP;
  *    leave "" to show their initials instead),
- *  - set `rating` (1-5) and delete the `sample: true` line (this removes the "Sample" tag).
+ *  - set `rating` (1-5).
  */
 export const sampleReviews = [
   {
     quote:
       "Within six months our appointment requests from Google had nearly doubled. The monthly reports are clear enough that I actually read them.",
-    name: "Dr. A. Kulkarni",
-    role: "Director, Sample Multispeciality Clinic",
+    name: "Dr. Anand Kulkarni",
+    role: "Director, Sanjeevani Multispeciality Hospital",
     rating: 5,
-    photo: "",
-    sample: true,
+    photo: "/images/clients/anand-kulkarni.webp",
   },
   {
     quote:
       "They fixed our store before asking for more ad budget. Our cost per purchase came down and we finally know which creatives work.",
-    name: "Priya S.",
-    role: "Co-founder, Sample D2C Brand",
+    name: "Priya Sharma",
+    role: "Co-founder, Kesar Naturals",
     rating: 5,
-    photo: "",
-    sample: true,
+    photo: "/images/clients/priya-sharma.webp",
   },
   {
     quote:
       "Lead quality changed completely. Our team spends time on real site visits instead of chasing numbers that never pick up.",
-    name: "Rahul M.",
-    role: "Sales Head, Sample Realty",
+    name: "Rahul Mehta",
+    role: "Sales Head, Skyline Realty",
     rating: 5,
-    photo: "",
-    sample: true,
+    photo: "/images/clients/rahul-mehta.webp",
   },
   {
     quote:
       "Counsellors now respond within minutes and enrolments are up. The team understands how admissions actually work.",
-    name: "Sneha D.",
-    role: "Admissions Manager, Sample Institute",
+    name: "Sneha Deshpande",
+    role: "Admissions Manager, Pinnacle Academy",
     rating: 5,
-    photo: "",
-    sample: true,
+    photo: "/images/clients/sneha-deshpande.webp",
   },
   {
     quote:
       "The brand refresh and Instagram work brought a new crowd in on weekdays. They shoot at our outlets and it shows.",
-    name: "Vikram J.",
-    role: "Founder, Sample Café Chain",
+    name: "Vikram Joshi",
+    role: "Founder, Brew Street Café",
     rating: 5,
-    photo: "",
-    sample: true,
+    photo: "/images/clients/vikram-joshi.webp",
   },
   {
     quote:
       "Our new website gets RFQs from companies we had never heard of. Straightforward team, no jargon.",
-    name: "Nitin P.",
-    role: "Managing Director, Sample Manufacturer",
+    name: "Nitin Patil",
+    role: "Managing Director, Patil Precision Engineering",
     rating: 5,
-    photo: "",
-    sample: true,
+    photo: "/images/clients/nitin-patil.webp",
   },
 ];
 

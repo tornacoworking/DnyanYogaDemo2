@@ -5,7 +5,8 @@
  * id="enquire" lets "#enquire" links scroll here if JavaScript has not loaded yet
  * (normally they open the pop-up instead).
  */
-import { MessageCircle, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import EnquiryForm from "@/components/forms/EnquiryForm";
 
 /**
@@ -44,7 +45,7 @@ export default function EnquirySection({ formType, content, serviceOptions, cont
                 className="inline-flex min-h-11 items-center gap-3 text-lg font-semibold text-white hover:text-saffron-300"
               >
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10">
-                  <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                  <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
                 </span>
                 Chat on WhatsApp
               </a>

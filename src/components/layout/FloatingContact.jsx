@@ -7,7 +7,8 @@
  * These are plain links; no state or effects needed.
  */
 
-import { Phone, MessageCircle } from "lucide-react";
+import { Phone } from "lucide-react";
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 
 /**
  * @param {Object} props
@@ -40,7 +41,7 @@ export default function FloatingContact({ phone, phoneDisplay, whatsapp }) {
           rel="noopener noreferrer"
           className="flex min-h-14 items-center justify-center gap-2 bg-leaf-700 font-semibold text-white"
         >
-          <MessageCircle className="h-5 w-5" aria-hidden="true" />
+          <WhatsAppIcon className="h-5 w-5" aria-hidden="true" />
           WhatsApp
         </a>
       </div>
@@ -52,9 +53,9 @@ export default function FloatingContact({ phone, phoneDisplay, whatsapp }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat with us on WhatsApp"
-          className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-leaf-700 text-white shadow-card-hover transition-transform hover:scale-105"
+          className="inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-card-hover transition-transform hover:scale-105"
         >
-          <MessageCircle className="h-7 w-7" aria-hidden="true" />
+          <WhatsAppIcon className="h-8 w-8" aria-hidden="true" />
         </a>
         <a
           href={`tel:${phone}`}

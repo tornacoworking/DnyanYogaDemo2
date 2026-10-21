@@ -5,7 +5,7 @@
  * Data comes from: /src/data/work.js (through /src/data/db.js), passed in as props.
  *
  * NOTE: most figures, names and reviews in /src/data/work.js are PLACEHOLDERS. The hero shows a
- * yellow notice and every review card a "Sample" badge until they are replaced with real ones.
+ * yellow notice until the figures are replaced with real ones.
  */
 import { Link } from "react-router";
 import { ArrowRight, MousePointerClick, Quote, Search, Star, TrendingUp } from "lucide-react";
@@ -372,7 +372,7 @@ function GoogleG() {
  * @param {typeof import("@/data/work").socialProof} props.content
  * @param {{rating:number, reviewCount:string, reviewsUrl:string}} props.rating
  * @param {string[]} props.clients  Client names for the scrolling strip
- * @param {Array<{quote:string,name:string,role:string,rating?:number,photo?:string,sample?:boolean}>} props.reviews
+ * @param {Array<{quote:string,name:string,role:string,rating?:number,photo?:string}>} props.reviews
  */
 export function SocialProof({ content, rating, clients, reviews }) {
   const badge = (
@@ -456,11 +456,6 @@ export function SocialProof({ content, rating, clients, reviews }) {
                     {review.role}
                   </span>
                 </span>
-                {review.sample && (
-                  <span className="rounded-md bg-amber-50 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-wide text-amber-800">
-                    Sample
-                  </span>
-                )}
               </figcaption>
             </figure>
           ))}

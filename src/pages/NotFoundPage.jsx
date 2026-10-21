@@ -13,7 +13,6 @@ import LetsTalkButton from "@/components/forms/LetsTalkButton";
 
 export default function NotFoundPage() {
   const meta = buildMetadata({ ...pageSeo.notFound, path: "/404", noIndex: true });
-
   return (
     <>
       <Seo meta={meta} />

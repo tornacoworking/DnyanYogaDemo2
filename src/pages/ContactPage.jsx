@@ -10,7 +10,8 @@
  *  - PIN code not shown: add site.address.postalCode.
  * ---------------------------------------------------------------------------
  */
-import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import { getServiceOptions, pageSeo, site } from "@/data/db";
 import { buildMetadata } from "@/lib/seo";
 import PageHero from "@/components/ui/PageHero";
@@ -57,7 +58,7 @@ export default function ContactPage() {
               </li>
               <li className="flex gap-4">
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-saffron-50 text-saffron-600">
-                  <MessageCircle className="h-6 w-6" aria-hidden="true" />
+                  <WhatsAppIcon className="h-6 w-6" aria-hidden="true" />
                 </span>
                 <div>
                   <p className="text-sm text-gray-600">WhatsApp</p>

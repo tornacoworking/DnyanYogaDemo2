@@ -9,7 +9,8 @@
  * no badges → no badges row, and links to empty pages (blog, careers...) are left out.
  */
 import { Link } from "react-router";
-import { Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 import { categories, getQuickLinks, getServicesByCategory, serviceUrl, site } from "@/data/db";
 import Logo from "./Logo";
 import SocialIcon from "./SocialIcon";
@@ -74,7 +75,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="flex min-h-11 items-center gap-3 hover:text-white"
                 >
-                  <MessageCircle className="h-5 w-5 shrink-0 text-saffron-300" aria-hidden="true" />
+                  <WhatsAppIcon className="h-5 w-5 shrink-0 text-saffron-300" aria-hidden="true" />
                   WhatsApp us
                 </a>
               </li>

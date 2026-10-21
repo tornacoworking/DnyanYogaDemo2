@@ -11,7 +11,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { useLocation } from "react-router";
-import { ChevronDown, Menu, MessageCircle, Phone, X } from "lucide-react";
+import { ChevronDown, Menu, Phone, X } from "lucide-react";
+import WhatsAppIcon from "@/components/ui/WhatsAppIcon";
 
 /**
  * @param {Object} props
@@ -141,7 +142,7 @@ export default function MobileMenu({ categories, links, phone, phoneDisplay, wha
               <Phone className="h-5 w-5" aria-hidden="true" /> Call
             </a>
             <a href={`https://wa.me/${whatsapp}`} target="_blank" rel="noopener noreferrer" className="btn-secondary !px-3">
-              <MessageCircle className="h-5 w-5" aria-hidden="true" /> WhatsApp
+              <WhatsAppIcon className="h-5 w-5" aria-hidden="true" /> WhatsApp
             </a>
             <a href="#enquire" onClick={() => setIsOpen(false)} className="btn-primary col-span-2">
               Let&apos;s Talk
